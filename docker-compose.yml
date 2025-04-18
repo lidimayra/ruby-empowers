@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "./bin/dev"
+    tty: true
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+
