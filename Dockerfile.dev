@@ -1,0 +1,28 @@
+# syntax = docker/dockerfile:1
+
+ARG RUBY_VERSION=3.4.1
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-bookworm
+
+WORKDIR /rails
+
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config node-gyp curl sqlite3 nano libyaml-dev
+
+ARG NODE_VERSION=20.15.0
+ARG YARN_VERSION=latest
+ENV PATH=/usr/local/node/bin:$PATH
+RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+  /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+  npm install -g yarn@$YARN_VERSION && \
+  rm -rf /tmp/node-build-master
+
+COPY Gemfile Gemfile.lock ./
+COPY .ruby-version ./
+RUN bundle install
+
+COPY . .
+
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
