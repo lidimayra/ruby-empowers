@@ -11,6 +11,11 @@ docker compose up
 
 A aplicação agora pode ser acessada em http://localhost:3000
 
+## Para rodar os testes
+```
+docker compose run web bin/rspec
+```
+
 1 - [Introdução e setup inicial](./docs/1-introducao-e-setup-inicial)
 
 2 - [Fundamentos MVC e idealização do projeto](./docs/2-fundamentos-mvc)
