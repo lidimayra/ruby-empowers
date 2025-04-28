@@ -16,8 +16,7 @@ Essas bibliotecas são gerenciadas no Gemfile.
 
 - Instalando uma gem manualmente:
 ```
-$ docker exec -it ruby-empowers-web-1 bash
-root@1234:/rails# gem install nome_da_gem
+docker compose run web bundle add <nome_da_gem>
 ```
 - Inserir uma gem no gemfile.
 
