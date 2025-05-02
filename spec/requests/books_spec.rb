@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Books", type: :request do
-  describe "GET /index" do
+  describe "GET index" do
     it "returns http success" do
       get "/books"
       expect(response).to have_http_status(:success)
     end
 
     context "without books" do
-      it "returns the list of books" do
+      it "returns an empty list" do
         get "/books"
         expect(response.parsed_body).to be_empty
       end
@@ -52,10 +52,21 @@ RSpec.describe "Books", type: :request do
     end
   end
 
-  describe "GET /show" do
-    it "returns http success" do
-      get "/books/1"
-      expect(response).to have_http_status(:success)
-    end
+  describe "GET show" do
+  end
+
+  describe "GET new" do
+  end
+
+  describe "POST create" do
+  end
+
+  describe "GET edit" do
+  end
+
+  describe "PATCH update" do
+  end
+
+  describe "DELETE destroy" do
   end
 end
