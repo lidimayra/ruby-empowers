@@ -1,8 +1,13 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    books = []
+
+    render json: books
   end
 
   def show
+    book = nil
+
+    render json: book
   end
 end
