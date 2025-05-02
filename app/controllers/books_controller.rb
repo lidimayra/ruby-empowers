@@ -6,8 +6,26 @@ class BooksController < ApplicationController
   end
 
   def show
-    book = nil
+    # Aguardando implementação
+  end
 
-    render json: book
+  def new
+    # Aguardando implementação
+  end
+
+  def create
+    # Aguardando implementação
+  end
+
+  def edit
+    # Aguardando implementação
+  end
+
+  def update
+    # Aguardando implementação
+  end
+
+  def destroy
+    # Aguardando implementação
   end
 end
