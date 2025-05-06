@@ -5,16 +5,17 @@ Pré-requisito: Docker instalado
 ## Rodando a aplicação
 
 ```
+# Constrói a imagem baseada no Dockerfile
 docker compose build
+
+# Configuração inicial do banco de dados, já alimentado com exemplos pré-definidos
+docker compose run --rm web bin/rails db:setup
+
+# Sobe o servidor
 docker compose up
 ```
 
 A aplicação agora pode ser acessada em http://localhost:3000
-
-## Executando a migration
-```
-docker compose exec web rails db:migrate
-```
 
 ## Para rodar os testes
 ```

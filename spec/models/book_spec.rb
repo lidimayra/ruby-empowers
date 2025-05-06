@@ -1,21 +1,20 @@
 require 'rails_helper'
 
-# Todos os testes estão falhando nesse momento já que o model Book está vazio.
-# A ideia é não alterar a implementação dos testes por enquanto. Queremos implementar a lógica em
-# Book até que todos os testes passem. Não precisamos nos preocupar com qualidade de código, vamos
-# focar em implementar o mínimo possível para alcançar o comportamento esperado. Uma vez que os
-# testes estiverem verdes, podemos considerar melhorias em ambos os lados (tanto nos testes quando
-# no model)
-
 RSpec.describe Book, type: :model do
   describe "#validations" do
-    it { expect(Book.new).to validate_presence_of :title }
+    it "validates presence of title" do
+      pending "Make it pass"
+
+      expect(Book.new).to validate_presence_of :title
+    end
   end
 
   describe "#details" do
     context "with publisher" do
       context "with language" do
         it "includes title, publisher and language" do
+          pending "Make it pass"
+
           book = Book.new(title: "Vida de Gato", publisher: "Planeta", language: "Portuguese")
 
           expect(book.details).to eq "Vida de Gato (Planeta) - Portuguese"
@@ -24,6 +23,8 @@ RSpec.describe Book, type: :model do
 
       context "without language" do
         it "includes title and publisher" do
+          pending "Make it pass"
+
           book = Book.new(title: "Vida de Gato", publisher: "Planeta")
 
           expect(book.details).to eq "Vida de Gato (Planeta)"
@@ -34,6 +35,8 @@ RSpec.describe Book, type: :model do
     context "without publisher" do
       context "with language" do
         it "includes title and language mentioning unknown publisher" do
+          pending "Make it pass"
+
           book = Book.new(title: "Vida de Gato", language: "Portuguese")
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher) - Portuguese"
@@ -42,6 +45,8 @@ RSpec.describe Book, type: :model do
 
       context "without language" do
         it "includes title mentioning unkown publisher" do
+          pending "Make it pass"
+
           book = Book.new(title: "Vida de Gato")
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher)"
