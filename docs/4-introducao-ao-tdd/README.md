@@ -1,4 +1,16 @@
-# Testes
+# Introdução ao TDD
+
+## O que é TDD
+TDD é a sigla para "Test-Driven Development" - Desenvolvimento Orientado a Testes. 
+É uma abordagem onde você escreve os testes antes mesmo de escrever o código que será testado. 
+O TDD pode ser dividido em 3 etapas: 
+1- Escrever um teste que define o que o seu código deveria fazer
+2- Escrever o código mais simples possível para fazer o teste passar
+3- Melhorar o código, mantendo o seu teste passando
+
+Esse tipo de abordagem resulta em códigos mais confiáveis e com menos defeitos.
+
+## Praticando
 
 Para os testes, usaremos o [RSpec](https://rspec.info/).
 
@@ -77,4 +89,3 @@ Potenciais TODOS:
 - Como executar: `bin/rails rspec`
 - Escrita de testes
 - request specs
-- TDD flow
