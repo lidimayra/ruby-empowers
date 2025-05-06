@@ -1,5 +1,8 @@
 # Rotas e controllers
 
+- https://github.com/lidimayra/ruby-empowers/pull/3
+- https://github.com/lidimayra/ruby-empowers/pull/4
+
 Potenciais TODOs:
 - HTTP: Request methods e response status codes
 - Rota simples e exemplo de controller
