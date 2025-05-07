@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
+  # 1. Remova a pendência do teste abaixo e execute-o.
+  # Você o verá falhando. Implemente a validação necessária no model Book para fazer com que o teste
+  # passe.
   describe "#validations" do
     it "validates presence of title" do
       pending "Make it pass"
@@ -9,6 +12,9 @@ RSpec.describe Book, type: :model do
     end
   end
 
+
+  # 2. Remova a pendência dos testes abaixo um de cada vez. Com um único teste falhando, escreva no
+  # model somente o código necessário para fazer com o que teste passe.
   describe "#details" do
     context "with publisher" do
       context "with language" do
@@ -54,4 +60,11 @@ RSpec.describe Book, type: :model do
       end
     end
   end
+
+  # 3. Escreva aqui os testes que definirão um novo método no model Book. Fique à vontade para dar
+  # ao método o nome que preferir. Queremos um método que ao ser invocado, nos informe se um livro
+  # foi adquirido pela biblioteca recentemente. Consideramos recente qualquer livro cuja data de
+  # cadastro pertença ao período dos últimos 12 meses. Siga o método TDD. Primeiro implemente os
+  # testes que verifiquem a funcionalidade desejada. Só então, parta para a implementação do método
+  # no model.
 end

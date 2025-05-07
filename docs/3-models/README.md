@@ -1,6 +1,6 @@
 # Models
 
-O model Book já foi criado para esse projeto e está disponível em app/models/book.rb. Nós o geramos
+O model Book já foi criado para esse projeto e está disponível em app/models/book.rb. Nós o criamos
 com o gerador automático fornecido pelo Rails:
 
 ```

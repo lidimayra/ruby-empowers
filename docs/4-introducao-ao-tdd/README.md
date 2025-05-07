@@ -78,14 +78,12 @@ o teste passe. Uma vez que o teste passar, fique à vontade para aplicar melhori
 preferir.
 
 Faça isso com todos os testes contidos no arquivo `book_spec.rb` até que todos estejam verdes.
+
+Depois disso, é a sua vez de escrever o próximo teste do zero. O arquivo de testes contém um
+comentário sugerindo a escrita de um novo teste e a respectiva implementação no model.
+
 Ao final, rode todos eles:
 
 ```
 docker compose run --rm web bin/rspec spec/models/book_spec.rb
 ```
-
-
-Potenciais TODOS:
-- Como executar: `bin/rails rspec`
-- Escrita de testes
-- request specs
