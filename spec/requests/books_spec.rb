@@ -53,6 +53,33 @@ RSpec.describe "Books", type: :request do
   end
 
   describe "GET show" do
+    # Seguindo na mesma linha, agora queremos testar a rota associada a books#show
+    # Preencha os testes abaixo de forma que ao enviar uma GET request para a rota de books#show,
+    # retorne os dados do livro. Nesse caso, também deveremos lidar com o cenário em que o usuário
+    # tente acessar a rota de um livro não existente.
+    #
+    # Se precisar de ajuda para relembrar a rota a ser testada, lembre-se de consultar as rotas
+    # disponíveis através do `rails routes`.
+    # ```
+    # docker compose run --rm web bin/rails routes -g books
+    # ```
+
+    context "when the book exists" do
+      # Lembre que neste contexto, é necessário criar um livro antes de enviar a request.
+      it "returns success" do
+      end
+
+      it "returns the book data" do
+      end
+    end
+
+    context "when the book does no exist" do
+      # E quando o usuário tentar acessar um livro que não está registrado no nosso banco?
+      # Qual seria o código HTTP correto? Fique à vontade para atualizar a descrição do teste abaixo
+      # para que se torne mais clara.
+      it "returns the correct HTTP status code" do
+      end
+    end
   end
 
   describe "GET new" do
