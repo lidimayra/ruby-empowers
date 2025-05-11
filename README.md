@@ -1,8 +1,9 @@
 # Ruby Empowers
 
-Pré-requisito: Docker instalado
+Esse repositório contém conteúdos e atividades práticas aplicadas durante o treinamento Ruby Empowers. 
 
 ## Rodando a aplicação
+Pré-requisito: Docker instalado
 
 ```
 # Constrói a imagem baseada no Dockerfile
@@ -28,8 +29,8 @@ docker compose run web bin/rspec
 
 3 - [Models](./docs/3-models)
 
-4 - [Rotas e controllers](./docs/4-rotas-e-controllers)
+4 - [Introdução ao TDD](./docs/4-introducao-ao-tdd)
 
-5 - [Views](./docs/5-views)
+5 - [Rotas e controllers](./docs/5-rotas-e-controllers)
 
-6 - [Testes](./docs/6-testes)
+6 - [Views](./docs/6-views)
