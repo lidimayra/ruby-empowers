@@ -10,6 +10,21 @@ O TDD pode ser dividido em 3 etapas:
 
 Esse tipo de abordagem resulta em códigos mais confiáveis e com menos defeitos.
 
+## Comandos para rodar os testes
+Para rodar todos os testes do arquivo:
+```
+docker compose run --rm web bin/rspec spec/models/book_spec.rb
+```
+Para rodar um teste específico (nesse exemplo, roda o teste presente na linha 5)
+```
+docker compose run --rm web bin/rspec spec/models/book_spec.rb:5
+```
+Para trazer o resultado dos testes num formato diferente use o `--format`. Nesse exemplo, nossos testes vão rodar em formato de documentação:
+```
+docker compose run --rm web bin/rspec spec/models/book_spec.rb --format=documentation
+```
+Mais informações sobre formatos [aqui](https://rspec.info/features/3-13/rspec-core/command-line/format-option/).
+
 ## Praticando
 
 Para os testes, usaremos o [RSpec](https://rspec.info/).
