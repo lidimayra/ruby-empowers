@@ -17,12 +17,20 @@ RSpec.describe Book, type: :model do
     subject { book.details }
 
     context "with publisher" do
-      let(:book) { Book.new(title: "Vida de Gato", publisher: "Planeta", language: language) }
+      let(:book) { Fabricate.build(:book, publisher: "Planeta", language: language) }
 
       context "with language" do
-        let(:language) { "Portuguese" }
+        context "In Portuguese" do
+          let(:language) { "Portuguese" }
 
-        it { is_expected.to eq "Vida de Gato (Planeta) - Portuguese" }
+          it { is_expected.to eq "Vida de Gato (Planeta) - Portuguese" }
+        end
+
+        context "In German" do
+          let(:language) { "German" }
+
+          it { is_expected.to eq "Vida de Gato (Planeta) - German" }
+        end
       end
 
       context "without language" do
@@ -35,7 +43,7 @@ RSpec.describe Book, type: :model do
     context "without publisher" do
       context "with language" do
         it "includes title and language mentioning unknown publisher" do
-          book = Book.new(title: "Vida de Gato", language: "Portuguese")
+          book = Fabricate.build(:book)
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher) - Portuguese"
         end
@@ -43,7 +51,7 @@ RSpec.describe Book, type: :model do
 
       context "without language" do
         it "includes title mentioning unkown publisher" do
-          book = Book.new(title: "Vida de Gato")
+          book = Fabricate.build(:book, language: nil)
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher)"
         end
