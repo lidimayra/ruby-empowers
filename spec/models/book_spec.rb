@@ -6,8 +6,6 @@ RSpec.describe Book, type: :model do
   # passe.
   describe "#validations" do
     it "validates presence of title" do
-      pending "Make it pass"
-
       expect(Book.new).to validate_presence_of :title
     end
   end
@@ -16,34 +14,36 @@ RSpec.describe Book, type: :model do
   # 2. Remova a pendência dos testes abaixo um de cada vez. Com um único teste falhando, escreva no
   # model somente o código necessário para fazer com o que teste passe.
   describe "#details" do
+    subject { book.details }
+
     context "with publisher" do
+      let(:book) { Fabricate.build(:book, publisher: "Planeta", language: language) }
+
       context "with language" do
-        it "includes title, publisher and language" do
-          pending "Make it pass"
+        context "In Portuguese" do
+          let(:language) { "Portuguese" }
 
-          book = Book.new(title: "Vida de Gato", publisher: "Planeta", language: "Portuguese")
+          it { is_expected.to eq "Vida de Gato (Planeta) - Portuguese" }
+        end
 
-          expect(book.details).to eq "Vida de Gato (Planeta) - Portuguese"
+        context "In German" do
+          let(:language) { "German" }
+
+          it { is_expected.to eq "Vida de Gato (Planeta) - German" }
         end
       end
 
       context "without language" do
-        it "includes title and publisher" do
-          pending "Make it pass"
+        let(:language) { nil }
 
-          book = Book.new(title: "Vida de Gato", publisher: "Planeta")
-
-          expect(book.details).to eq "Vida de Gato (Planeta)"
-        end
+        it { is_expected.to eq "Vida de Gato (Planeta)" }
       end
     end
 
     context "without publisher" do
       context "with language" do
         it "includes title and language mentioning unknown publisher" do
-          pending "Make it pass"
-
-          book = Book.new(title: "Vida de Gato", language: "Portuguese")
+          book = Fabricate.build(:book)
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher) - Portuguese"
         end
@@ -51,9 +51,7 @@ RSpec.describe Book, type: :model do
 
       context "without language" do
         it "includes title mentioning unkown publisher" do
-          pending "Make it pass"
-
-          book = Book.new(title: "Vida de Gato")
+          book = Fabricate.build(:book, language: nil)
 
           expect(book.details).to eq "Vida de Gato (Unknown Publisher)"
         end
