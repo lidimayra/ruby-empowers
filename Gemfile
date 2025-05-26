@@ -54,6 +54,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
 
   gem "pry", "~> 0.15.2"
+
+  gem "fabrication"
 end
 
 group :development do
