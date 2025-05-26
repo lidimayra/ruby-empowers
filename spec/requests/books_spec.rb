@@ -18,7 +18,14 @@ RSpec.describe "Books", type: :request do
       it "returns the list of books" do
         pending "Make it pass"
 
-        # Cria 3 livros antes da execução do teste
+        # Cria 3 livros antes da execução do teste.
+        # Alternativamente, agora que a fabrication gem já está instalada,
+        # poderíamos usá-la para essa finalidade. Uma vez que o teste estiver
+        # verde, experimente refatora-lo com essa melhoria.
+        # Uma outra sugestão de melhoria aqui seria mover essa variável para
+        # um `let`, mantendo o código dentro do bloco `it` mais limpo e
+        # legível. Para relembrar, vejam as alterações no PR da aula passada:
+        # - https://github.com/lidimayra/ruby-empowers/pull/15
         books = 3.times.map { Book.create(title: "My book") }
 
         get "/books"
@@ -30,6 +37,8 @@ RSpec.describe "Books", type: :request do
           pending "Make it pass"
 
           # Cria 3 livros antes da execução do teste
+          # Assim como no exemplo anterior, aqui também podemos aplicar as
+          # mesmas melhorias (uso de fabricators, uso de let)
           book1 = Book.create(title: "Úrsula", language: "Portuguese")
           book2 = Book.create(title: "Becos da Memória", language: "Portuguese")
           book3 = Book.create(title: "Wuthering Heights", language: "English")
