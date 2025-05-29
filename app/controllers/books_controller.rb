@@ -1,11 +1,16 @@
 class BooksController < ApplicationController
-  def index
-    books = Book.all
-    books = books.where(language: params[:language]) if params[:language].present?
-    books = books.where(quantity: 0) if params[:available] == "false"
-    books = books.where("quantity > 0") if params[:available] == "true"
+  skip_before_action :verify_authenticity_token
 
-    render json: books
+  def index
+    @books = Book.all
+    @books = @books.where(language: params[:language]) if params[:language].present?
+    @books = @books.where(quantity: 0) if params[:available] == "false"
+    @books = @books.where("quantity > 0") if params[:available] == "true"
+
+    respond_to do |format|
+      format.html # will render index.html.erb
+      format.json { render json: @books }
+    end
   end
 
   def show
