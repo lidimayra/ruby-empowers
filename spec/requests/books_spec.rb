@@ -53,11 +53,15 @@ RSpec.describe "Books", type: :request do
       end
 
       # Depois que todos os testes acima já tiverem verdes, acrescente novos testes aqui.
-      # Escreva testes (e as respectivas funcionalidades no controller) que verifiquem a
+      # 1. Escreva testes (e as respectivas funcionalidades no controller) que verifiquem a
       # aceitação de um parâmetro booleano chamado `available`. Se o valor for `true`,
       # verifique que a lista retornada contenha apenas livros cuja quantidade seja maior que 0.
       # Se o valor for `false`, verifique o cenário oposto (apenas livros cuja quantidade seja
       # igual a zero).
+
+      # 2. Escreva testes (e as respectivas funcionalidades no controller) que verifiquem
+      # a quantidade de livros pertencentes a editora Ática. Não se esqueça de adicionar a editora
+      # ao fabricar alguns dos livros.
     end
   end
 
