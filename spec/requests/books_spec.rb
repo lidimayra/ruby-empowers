@@ -41,9 +41,9 @@ RSpec.describe "Books", type: :request do
           # Cria 3 livros antes da execução do teste
           # Assim como no exemplo anterior, aqui também podemos aplicar as
           # mesmas melhorias (uso de fabricators, uso de let)
-          book1 = Fabricate(:book, title: "Úrsula", language: "Portuguese")
-          book2 = Fabricate(:book, title: "Becos da Memória", language: "Portuguese")
-          book3 = Fabricate(:book, title: "Wuthering Heights", language: "English")
+          book1 = Fabricate(:book, title: "Úrsula")
+          book2 = Fabricate(:book, title: "Becos da Memória")
+          book3 = Fabricate(:english_book, title: "Wuthering Heights")
 
           get_books
           expect(response.parsed_body.size).to eq 2
@@ -61,9 +61,9 @@ RSpec.describe "Books", type: :request do
       # Se o valor for `false`, verifique o cenário oposto (apenas livros cuja quantidade seja
       # igual a zero).
       context "when passing available param" do
-        let!(:book1) { Fabricate :book, title: "Fim", quantity: 0 }
-        let!(:book2) { Fabricate :book, title: "Desesterro", quantity: 0 }
-        let!(:book3) { Fabricate :book, title: "Convite à Filosofia", quantity: 1 }
+        let!(:book1) { Fabricate :unavailable_book, title: "Fim" }
+        let!(:book2) { Fabricate :unavailable_book, title: "Desesterro" }
+        let!(:book3) { Fabricate :available_book, title: "Convite à Filosofia" }
 
         context "when available is true" do
           let(:params) { { available: true } }
