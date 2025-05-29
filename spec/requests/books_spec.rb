@@ -2,14 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "Books", type: :request do
   describe "GET index" do
+    subject(:get_books) { get "/books", params: params }
+
+    let(:params) { {} }
+
     it "returns http success" do
-      get "/books"
+      get_books
       expect(response).to have_http_status(:success)
     end
 
     context "without books" do
       it "returns an empty list" do
-        get "/books"
+        get_books
         expect(response.parsed_body).to be_empty
       end
     end
@@ -24,22 +28,24 @@ RSpec.describe "Books", type: :request do
         # um `let`, mantendo o código dentro do bloco `it` mais limpo e
         # legível. Para relembrar, vejam as alterações no PR da aula passada:
         # - https://github.com/lidimayra/ruby-empowers/pull/15
-        books = 3.times.map { Book.create(title: "My book") }
+        Fabricate.times(3, :book)
 
-        get "/books"
+        get_books
         expect(response.parsed_body.size).to eq 3
       end
 
       context "when passing language param" do
+        let(:params) { { language: "Portuguese" } }
+
         it "filters the books list by language" do
           # Cria 3 livros antes da execução do teste
           # Assim como no exemplo anterior, aqui também podemos aplicar as
           # mesmas melhorias (uso de fabricators, uso de let)
-          book1 = Book.create(title: "Úrsula", language: "Portuguese")
-          book2 = Book.create(title: "Becos da Memória", language: "Portuguese")
-          book3 = Book.create(title: "Wuthering Heights", language: "English")
+          book1 = Fabricate(:book, title: "Úrsula", language: "Portuguese")
+          book2 = Fabricate(:book, title: "Becos da Memória", language: "Portuguese")
+          book3 = Fabricate(:book, title: "Wuthering Heights", language: "English")
 
-          get "/books", params: { language: "Portuguese" }
+          get_books
           expect(response.parsed_body.size).to eq 2
 
           expect(response.body).to include "Úrsula"
@@ -60,8 +66,9 @@ RSpec.describe "Books", type: :request do
         let!(:book3) { Fabricate :book, title: "Convite à Filosofia", quantity: 1 }
 
         context "when available is true" do
+          let(:params) { { available: true } }
           it "returns the list of books with a quantity greater than 0" do
-            get "/books", params: { available: true }
+            get_books
 
             expect(response.parsed_body.size).to eq 1
 
@@ -73,8 +80,10 @@ RSpec.describe "Books", type: :request do
         end
 
         context "when available is false" do
+          let(:params) { { available: false } }
+
           it "returns the list of books with a quantity equal to 0" do
-            get "/books", params: { available: false }
+            get_books
 
             expect(response.parsed_body.size).to eq 2
 
@@ -103,19 +112,21 @@ RSpec.describe "Books", type: :request do
     # ```
     # docker compose run --rm web bin/rails routes -g books
     # ```
+    subject(:get_book) { get "/books/#{book_id}" }
 
     context "when the book exists" do
       # Lembre que neste contexto, é necessário criar um livro antes de enviar a request.
       let!(:book) { Fabricate :book }
+      let(:book_id) { book.id }
 
       it "returns success" do
-        get "/books/#{book.id}"
+        get_book
 
         expect(response).to have_http_status :success
       end
 
       it "returns the book data" do
-        get "/books/#{book.id}"
+        get_book
 
         expect(response.parsed_body["title"]).to eq book.title
         expect(response.parsed_body["language"]).to eq book.language
@@ -124,12 +135,12 @@ RSpec.describe "Books", type: :request do
     end
 
     context "when the book does no exist" do
+      let(:book_id) { "239023" }
       # E quando o usuário tentar acessar um livro que não está registrado no nosso banco?
       # Qual seria o código HTTP correto? Fique à vontade para atualizar a descrição do teste abaixo
       # para que se torne mais clara.
       it "returns not found" do
-        get "/books/28932894"
-
+        get_book
         expect(response).to have_http_status :not_found
       end
     end
