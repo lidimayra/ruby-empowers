@@ -16,8 +16,6 @@ RSpec.describe "Books", type: :request do
 
     context "with books" do
       it "returns the list of books" do
-        pending "Make it pass"
-
         # Cria 3 livros antes da execução do teste.
         # Alternativamente, agora que a fabrication gem já está instalada,
         # poderíamos usá-la para essa finalidade. Uma vez que o teste estiver
@@ -34,8 +32,6 @@ RSpec.describe "Books", type: :request do
 
       context "when passing language param" do
         it "filters the books list by language" do
-          pending "Make it pass"
-
           # Cria 3 livros antes da execução do teste
           # Assim como no exemplo anterior, aqui também podemos aplicar as
           # mesmas melhorias (uso de fabricators, uso de let)
@@ -58,6 +54,37 @@ RSpec.describe "Books", type: :request do
       # verifique que a lista retornada contenha apenas livros cuja quantidade seja maior que 0.
       # Se o valor for `false`, verifique o cenário oposto (apenas livros cuja quantidade seja
       # igual a zero).
+      context "when passing available param" do
+        let!(:book1) { Fabricate :book, title: "Fim", quantity: 0 }
+        let!(:book2) { Fabricate :book, title: "Desesterro", quantity: 0 }
+        let!(:book3) { Fabricate :book, title: "Convite à Filosofia", quantity: 1 }
+
+        context "when available is true" do
+          it "returns the list of books with a quantity greater than 0" do
+            get "/books", params: { available: true }
+
+            expect(response.parsed_body.size).to eq 1
+
+            expect(response.body).to include "Convite à Filosofia"
+
+            expect(response.body).not_to include "Fim"
+            expect(response.body).not_to include "Desesterro"
+          end
+        end
+
+        context "when available is false" do
+          it "returns the list of books with a quantity equal to 0" do
+            get "/books", params: { available: false }
+
+            expect(response.parsed_body.size).to eq 2
+
+            expect(response.body).not_to include "Convite à Filosofia"
+
+            expect(response.body).to include "Fim"
+            expect(response.body).to include "Desesterro"
+          end
+        end
+      end
 
       # 2. Escreva testes (e as respectivas funcionalidades no controller) que verifiquem
       # a quantidade de livros pertencentes a editora Ática. Não se esqueça de adicionar a editora
@@ -79,10 +106,20 @@ RSpec.describe "Books", type: :request do
 
     context "when the book exists" do
       # Lembre que neste contexto, é necessário criar um livro antes de enviar a request.
+      let!(:book) { Fabricate :book }
+
       it "returns success" do
+        get "/books/#{book.id}"
+
+        expect(response).to have_http_status :success
       end
 
       it "returns the book data" do
+        get "/books/#{book.id}"
+
+        expect(response.parsed_body["title"]).to eq book.title
+        expect(response.parsed_body["language"]).to eq book.language
+        expect(response.parsed_body["quantity"]).to eq book.quantity
       end
     end
 
@@ -90,7 +127,10 @@ RSpec.describe "Books", type: :request do
       # E quando o usuário tentar acessar um livro que não está registrado no nosso banco?
       # Qual seria o código HTTP correto? Fique à vontade para atualizar a descrição do teste abaixo
       # para que se torne mais clara.
-      it "returns the correct HTTP status code" do
+      it "returns not found" do
+        get "/books/28932894"
+
+        expect(response).to have_http_status :not_found
       end
     end
   end
