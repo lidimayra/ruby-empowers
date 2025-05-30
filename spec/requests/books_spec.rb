@@ -150,14 +150,110 @@ RSpec.describe "Books", type: :request do
   end
 
   describe "POST create" do
+    subject(:post_create) { post "/books", params: params }
+
+    context "with an invalid params" do
+      let(:params) { { book: { author: "Alice Walker" } } }
+
+      it "returns an error" do
+        post_create
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it "does not create a book" do
+        expect { post_create }.not_to change(Book, :count)
+      end
+    end
+
+    context "with valid params" do
+      let(:params) { { book: Fabricate.attributes_for(:book) } }
+
+      it "returns success" do
+        post_create
+        expect(response).to have_http_status(:created)
+      end
+
+      it "creates a book" do
+        expect { post_create }.to change(Book, :count).from(0).to(1)
+      end
+
+      it "assigns the passed params to the created book" do
+        post_create
+
+        expect(response.parsed_body["title"]).to eq params[:book][:title]
+        expect(response.parsed_body["language"]).to eq params[:book][:language]
+        expect(response.parsed_body["quantity"]).to eq params[:book][:quantity]
+        expect(response.parsed_body["publisher"]).to eq params[:book][:publisher]
+      end
+    end
   end
 
   describe "GET edit" do
   end
 
   describe "PATCH update" do
+    subject(:patch_update) { patch "/books/#{book.id}", params: params }
+
+    context "when the book exists" do
+      let(:book) { Fabricate :available_book }
+
+      context "with valid params" do
+        let(:params) { { book: { quantity: 0 } } }
+
+        it "returns success" do
+          patch_update
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "updates the book data" do
+          expect { patch_update && book.reload }.to change(book, :quantity).from(5).to(0)
+        end
+      end
+
+      context "with invalid params" do
+        let(:params) { { book: { title: nil } } }
+
+        it "returns error" do
+          patch_update
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+    end
+
+    context "when the book does not exist" do
+      let(:book) { Fabricate.build :book }
+      let(:params) { { book: { quantity: 0 } } }
+
+      it "returns 404" do
+        patch_update
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
   describe "DELETE destroy" do
+    subject(:delete_destroy) { delete "/books/#{book.id}" }
+
+    context "when the book exists" do
+      let!(:book) { Fabricate :book }
+
+      it "returns success" do
+        delete_destroy
+        expect(response).to have_http_status(:success)
+      end
+
+      it "destroys the record" do
+        expect { delete_destroy }.to change(Book, :count).from(1).to(0)
+      end
+    end
+
+    context "when the book does not exist" do
+      let(:book) { Fabricate.build(:book) }
+
+      it "returns not found" do
+        delete_destroy
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end

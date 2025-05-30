@@ -18,22 +18,40 @@ class BooksController < ApplicationController
   end
 
   def new
-    # Aguardando implementação
+    # As ações new e edit não fazem tanto sentido na atividade em que estamos
+    # considerando apenas o retorno de dados em formato json.
+    # As mantivemos aqui porque elas serão úteis ao trabalhar com views.
   end
 
   def create
-    # Aguardando implementação
+    book = Book.create!(book_params)
+
+    render json: book, status: 201
   end
 
   def edit
-    # Aguardando implementação
+    # As ações new e edit não fazem tanto sentido na atividade em que estamos
+    # considerando apenas o retorno de dados em formato json.
+    # As mantivemos aqui porque elas serão úteis ao trabalhar com views.
   end
 
   def update
-    # Aguardando implementação
+    book = Book.find(params[:id])
+    book.update!(book_params)
+
+    render json: book
   end
 
   def destroy
-    # Aguardando implementação
+    book = Book.find(params[:id])
+    book.destroy
+
+    render json: book
+  end
+
+  private
+
+  def book_params
+    params.require(:book).permit(:title, :language, :quantity, :publisher)
   end
 end
