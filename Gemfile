@@ -69,3 +69,5 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 6.4"
 end
+
+gem "tailwindcss-rails", "~> 4.2"

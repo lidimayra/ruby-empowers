@@ -10,6 +10,16 @@ No nosso caso, nossa view "index.html.erb" deve exibir todos os livros cadastrad
 ## Show
 A view `show` exibe os detalhes de um registro específico. Ao clicar em um dos livros da nossa lista, devemos exibir os detalhes relacionados à ele.  
 
+## Uso do Tailwind como framework CSS
+
+Agora vamos instalar o Tailwind pra compor o estilo das views:
+
+```
+docker compose run --rm web bundle add tailwindcss-rails
+docker compose build
+docker compose run --rm web bin/rails tailwindcss:install
+```
+
 ## Exercícios adicionais
 - Como poderiamos fazer para criar uma `view` de criação de novos livros?
 - Como poderíamos criar uma `view` de edição? 
