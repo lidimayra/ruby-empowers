@@ -3,7 +3,7 @@ No padrão MVC (Model-View-Controller) do Rails, as views são responsáveis pel
 
 Para o nosso projeto trabalharemos com duas principais views: index e show. 
 
-Para os passos seguir, precisamos garantir que os controller se mantenha no estado em que deixamos no exercício
+Para os passos a seguir, precisamos garantir que o controller se mantenha no estado em que deixamos no exercício
 anterior. É necessário que o BooksController defina corretamente as variáveis de instância (para que possam ser
 acessadas nas views) e que as views sejam renderizadas (que as actions não retornem objetos json).
 
