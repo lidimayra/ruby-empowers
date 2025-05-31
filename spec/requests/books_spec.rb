@@ -98,6 +98,19 @@ RSpec.describe "Books", type: :request do
       # 2. Escreva testes (e as respectivas funcionalidades no controller) que verifiquem
       # a quantidade de livros pertencentes a editora Ática. Não se esqueça de adicionar a editora
       # ao fabricar alguns dos livros.
+      context "when passing a publisher as param" do
+        let(:params) { { publisher: "Ática" } }
+
+        let!(:book1) { Fabricate :book, publisher: "Ática" }
+        let!(:book2) { Fabricate :book, publisher: "Oito e meio" }
+
+        it "returns only the books with Ática registered as publisher" do
+          get_books
+
+          expect(response.parsed_body.size).to eq 1
+          expect(response.parsed_body.first["publisher"]).to eq "Ática"
+        end
+      end
     end
   end
 

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   def index
-    filter_params = params.permit(:language, :available)
+    filter_params = params.permit(:language, :publisher, :available)
     books = Book.where(filter_params.except(:available))
 
     if params[:available].present?
